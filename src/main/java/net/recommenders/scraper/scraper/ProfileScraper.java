@@ -32,6 +32,10 @@ public class ProfileScraper extends AbstractScraper{
         StringBuffer results = new StringBuffer();
 
         String baseurl = "http://goteborgsvarvet.r.mikatiming.de/2016/?content=detail&";
+        if(id == 0) {
+            StringBuffer columns = new StringBuffer("place\tplaceInClass\tbibNo\tnationality\tname\tid\teventid\tclass\tclub\ttime\t5kTOD\t5ktime\t5kdiff\t5kminperk\t5kkmh\t5kplace\t10kTOD\t10ktime\t10kdiff\t10kminperk\t10kkmh\t10kplace\t15kTOD\t15ktime\t15kdiff\t15kminperk\t15kkmh\t15kplace\t20kTOD\t20ktime\t20kdiff\t20kminperk\t20kkmh\t20kplace\tfinishTOD\tfinishtime\tfinishdiff\tfinishminperk\tfinishkmh\tfinishplace\n");
+            writeResults(year, columns);
+        }
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
 
@@ -104,7 +108,9 @@ public class ProfileScraper extends AbstractScraper{
         times += diff + "\t";
         times += minPerKm + "\t";
         times += kmPerH + "\t";
-        times += place + "\t";
+        times += place;
+        if (!kmTag.contains("finish"))
+            times += "\t";
         return times;
     }
 
